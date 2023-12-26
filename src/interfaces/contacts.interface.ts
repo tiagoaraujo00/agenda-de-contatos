@@ -3,7 +3,7 @@ export interface Contact {
   name: string;
   email: string;
   phone: string;
-  userId: string;
+  userId?: string;
 }
 
 export interface ContactCreate {
@@ -22,4 +22,7 @@ export interface ContactCreateData {
 export interface ContactsRepository {
   create(data: ContactCreateData): Promise<Contact>;
   findByEmailOrPhone(email: string, phone: string): Promise <Contact | null>;
+  findAllContacts(userId: string): Promise<Contact[]>;
+  updateContact({ id, name, email, phone }: Contact): Promise<Contact>
+  delete(id: string): Promise<boolean>;
 }
