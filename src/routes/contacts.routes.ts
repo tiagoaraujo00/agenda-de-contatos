@@ -40,9 +40,18 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         email,
         phone,
       })
-      return reply.send(data)
+      return reply.send(data);
     } catch (error) {
-      reply.send(error)
+      reply.send(error);
     }
-  })
+  });
+  fastify.delete<{ Params: { id: string } }>('/:id', async (req, reply) => {
+    const { id } = req.params;
+    try {
+      const data = await contactUseCase.delete(id);
+      return reply.send(data);
+    } catch (error) {
+      reply.send(error);
+    }
+  });
 }
